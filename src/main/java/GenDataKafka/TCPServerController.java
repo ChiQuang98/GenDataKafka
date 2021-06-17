@@ -1,4 +1,4 @@
-/*
+package GenDataKafka;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,12 +6,8 @@
 
 
 import net.andreinc.mockneat.MockNeat;
+import org.apache.kafka.clients.producer.Producer;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,15 +24,18 @@ public class TCPServerController {
     public static String ipPrivateMatching = "10.100.14.16";
     private volatile AtomicBoolean lock = new AtomicBoolean(false);
 
-    public TCPServerController( int option) {
+    public TCPServerController(int option, Producer<String,String> producer) {
         try {
-            Gendata(option);
+            Gendata(option,producer);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    private void Gendata(final int option){
+    private void Gendata(final int option,Producer<String,String> producer){
+        String topicMDO = "MDOTOPIC";
+        String topicSYS = "SYSTOPIC";
+
         try {
 
             new Thread(new Runnable() {
@@ -46,10 +45,12 @@ public class TCPServerController {
                             while (lock.getAndSet(true));
                             if (option == 1) {
 //                                oos.writeObject(genDataFakeFile1());
-                                System.out.println(genDataFakeFile1());
+//                                System.out.println(genDataFakeFile1());
+                                Utils.publishMessage(topicMDO,genDataFakeFile1(),producer);
                             } else {
 //                                oos.writeObject(genDataFakeFile2());
-                                System.out.println(genDataFakeFile2());
+//                                System.out.println(genDataFakeFile2());
+                                Utils.publishMessage(topicSYS,genDataFakeFile2(),producer);
                             }
                             lock.set(false);
 //                            Thread.sleep(1000);
@@ -67,10 +68,12 @@ public class TCPServerController {
                             while (lock.getAndSet(true));
                             if (option == 1) {
 //                                oos.writeObject(genDataMatchFile1());
-                                System.out.println(genDataMatchFile1());
+//                                System.out.println(genDataMatchFile1());
+                                Utils.publishMessage(topicMDO,genDataFakeFile1(),producer);
                             } else {
 //                                oos.writeObject(genDataMatchFile2());
-                                System.out.println(genDataMatchFile2());
+//                                System.out.println(genDataMatchFile2());
+                                Utils.publishMessage(topicSYS,genDataFakeFile2(),producer);
                             }
                             lock.set(false);
 //                            Thread.sleep(2000);

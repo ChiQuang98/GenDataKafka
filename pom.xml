@@ -19,6 +19,12 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>http://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -30,6 +36,13 @@
             <artifactId>mockneat</artifactId>
             <version>0.4.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.confluent.ksql/ksqldb-api-client -->
+        <dependency>
+            <groupId>io.confluent.ksql</groupId>
+            <artifactId>ksqldb-api-client</artifactId>
+            <version>6.2.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -1,4 +1,4 @@
-
+package GenDataKafka;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -10,7 +10,7 @@ import java.util.Properties;
 public class KafkaTest {
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.245.128:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         //If the request fails, the producer can automatically retry,
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
