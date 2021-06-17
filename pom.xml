@@ -42,7 +42,7 @@
             <artifactId>ksqldb-api-client</artifactId>
             <version>6.2.0</version>
         </dependency>
-
+<!--//Quang-->
     </dependencies>
 
 </project>
