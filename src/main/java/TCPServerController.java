@@ -24,30 +24,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class TCPServerController {
 
-    private ServerSocket serverSocket;
-    private Socket clientSocket;
+
     public static String ipPrivateMatching = "10.100.14.16";
     private volatile AtomicBoolean lock = new AtomicBoolean(false);
 
-    public TCPServerController(int port, int option) {
+    public TCPServerController( int option) {
         try {
-            serverSocket = new ServerSocket(port);
-            System.out.println("Server TCP with port : " + port + " is running...");
-            while (true) {
-                listening(option);
-            }
+            Gendata(option);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-    private void listening(final int option) {
+    private void Gendata(final int option){
         try {
-            clientSocket = serverSocket.accept();
-            System.out.println(clientSocket.getInetAddress());
-            final ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
-            ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
 
             new Thread(new Runnable() {
                 public void run() {
@@ -55,12 +45,14 @@ public class TCPServerController {
                         while (true) {
                             while (lock.getAndSet(true));
                             if (option == 1) {
-                                oos.writeObject(genDataFakeFile1());
+//                                oos.writeObject(genDataFakeFile1());
+                                System.out.println(genDataFakeFile1());
                             } else {
-                                oos.writeObject(genDataFakeFile2());
+//                                oos.writeObject(genDataFakeFile2());
+                                System.out.println(genDataFakeFile2());
                             }
                             lock.set(false);
-                            Thread.sleep(1);
+//                            Thread.sleep(1000);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -74,12 +66,14 @@ public class TCPServerController {
                         while (true) {
                             while (lock.getAndSet(true));
                             if (option == 1) {
-                                oos.writeObject(genDataMatchFile1());
+//                                oos.writeObject(genDataMatchFile1());
+                                System.out.println(genDataMatchFile1());
                             } else {
-                                oos.writeObject(genDataMatchFile2());
+//                                oos.writeObject(genDataMatchFile2());
+                                System.out.println(genDataMatchFile2());
                             }
                             lock.set(false);
-                            Thread.sleep(500);
+//                            Thread.sleep(2000);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -92,7 +86,7 @@ public class TCPServerController {
                     try {
                         while (true) {
                             resetIpPrivateMatching();
-                            Thread.sleep(500);
+//                            Thread.sleep(2000);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -103,16 +97,12 @@ public class TCPServerController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void resetIpPrivateMatching() {
         MockNeat mock = MockNeat.threadLocal();
         ipPrivateMatching = mock.ipv4s().val();
     }
-
-
     public String genDataFakeFile1() {
         String data = "";
         Date date = Calendar.getInstance().getTime();
@@ -206,9 +196,5 @@ public class TCPServerController {
         return data;
     }
 
-
-    private void commandClose() throws IOException, ClassNotFoundException {
-        clientSocket.close();
-    }
 
 }

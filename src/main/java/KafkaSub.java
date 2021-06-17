@@ -21,7 +21,6 @@ public class KafkaSub {
                 "org.apache.kafka.common.serialization.StringDeserializer");
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 "org.apache.kafka.common.serialization.StringDeserializer");
-
         // đọc các message của topic từ thời điểm hiển tại (default)
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         // đọc tất cả các message  của topic từ offset ban đầu

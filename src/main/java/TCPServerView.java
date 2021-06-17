@@ -15,13 +15,13 @@ public class TCPServerView {
 
         new Thread(new Runnable() {
             public void run() {
-                main.TCPServerController server1 = new main.TCPServerController(11000, 1);
+                TCPServerController server1 = new TCPServerController( 1);
             }
         }).start();
 
         new Thread(new Runnable() {
             public void run() {
-                main.TCPServerController server2 = new main.TCPServerController(11001, 2);
+//                TCPServerController server2 = new TCPServerController( 2);
 
             }
         }).start();
