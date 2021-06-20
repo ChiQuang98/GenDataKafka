@@ -1,6 +1,6 @@
 package GenDataKafka;/*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools , Templates
  * and open the template in the editor.
  */
 
@@ -34,7 +34,7 @@ public class TCPServerController {
     }
     private void Gendata(final int option,Producer<String,String> producer){
         String topicMDO = "MDOTOPIC";
-        String topicSYS = "SYSTOPIC";
+        String topicSYS = "SYS_TOPIC";
 
         try {
 
@@ -45,15 +45,15 @@ public class TCPServerController {
                             while (lock.getAndSet(true));
                             if (option == 1) {
 //                                oos.writeObject(genDataFakeFile1());
-//                                System.out.println(genDataFakeFile1());
+                                System.out.println(genDataFakeFile1());
                                 Utils.publishMessage(topicMDO,genDataFakeFile1(),producer);
                             } else {
 //                                oos.writeObject(genDataFakeFile2());
-//                                System.out.println(genDataFakeFile2());
+                                System.out.println(genDataFakeFile2());
                                 Utils.publishMessage(topicSYS,genDataFakeFile2(),producer);
                             }
                             lock.set(false);
-//                            Thread.sleep(1000);
+                            Thread.sleep(2000);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -68,15 +68,15 @@ public class TCPServerController {
                             while (lock.getAndSet(true));
                             if (option == 1) {
 //                                oos.writeObject(genDataMatchFile1());
-//                                System.out.println(genDataMatchFile1());
+                                System.out.println(genDataMatchFile1());
                                 Utils.publishMessage(topicMDO,genDataFakeFile1(),producer);
                             } else {
 //                                oos.writeObject(genDataMatchFile2());
-//                                System.out.println(genDataMatchFile2());
+                                System.out.println(genDataMatchFile2());
                                 Utils.publishMessage(topicSYS,genDataFakeFile2(),producer);
                             }
                             lock.set(false);
-//                            Thread.sleep(2000);
+                            Thread.sleep(2000);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -89,7 +89,7 @@ public class TCPServerController {
                     try {
                         while (true) {
                             resetIpPrivateMatching();
-//                            Thread.sleep(2000);
+                            Thread.sleep(2000);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -111,12 +111,12 @@ public class TCPServerController {
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
         String strDate = dateFormat.format(date);
-        data += strDate + "|RadiusMessage";
+        data += strDate + ",RadiusMessage";
 
         if (Math.random() < 0.5) {
-            data += "|Start";
+            data += ",Start";
         } else {
-            data += "|Stop";
+            data += ",Stop";
         }
 
         Random rand = new Random();
@@ -125,12 +125,12 @@ public class TCPServerController {
             phone += rand.nextInt(10);
         }
 
-        data += "|" + phone;
+        data += "," + phone;
 
         MockNeat mock = MockNeat.threadLocal();
 
         String ipv4 = mock.ipv4s().val();
-        data += "|" + ipv4;
+        data += "," + ipv4;
         return data;
     }
 
@@ -157,12 +157,12 @@ public class TCPServerController {
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
         String strDate = dateFormat.format(date);
-        data += strDate + "|RadiusMessage";
+        data += strDate + ",RadiusMessage";
 
         if (Math.random() < 0.5) {
-            data += "|Start";
+            data += ",Start";
         } else {
-            data += "|Stop";
+            data += ",Stop";
         }
 
         Random rand = new Random();
@@ -171,8 +171,8 @@ public class TCPServerController {
             phone += rand.nextInt(10);
         }
         System.out.println(phone);
-        data += "|" + phone;
-        data += "|" + ipPrivateMatching;
+        data += "," + phone;
+        data += "," + ipPrivateMatching;
 //        data = "Match1    "+data;
         return data;
     }

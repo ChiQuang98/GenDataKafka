@@ -17,6 +17,14 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <repositories>
@@ -37,12 +45,20 @@
             <version>0.4.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.confluent.ksql/ksqldb-api-client -->
+        <!-- https://mvnrepository.com/artifact/io.confluent.ksql/ksqldb-api-client -->
         <dependency>
             <groupId>io.confluent.ksql</groupId>
             <artifactId>ksqldb-api-client</artifactId>
-            <version>6.2.0</version>
+            <version>6.0.2</version>
         </dependency>
-<!--//Quang-->
+        <!-- https://mvnrepository.com/artifact/io.confluent.ksql/ksql-udf -->
+        <dependency>
+            <groupId>io.confluent.ksql</groupId>
+            <artifactId>ksql-udf</artifactId>
+            <version>5.4.4</version>
+        </dependency>
+
+        <!--//Quang-->
     </dependencies>
 
 </project>

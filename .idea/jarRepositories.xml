@@ -27,6 +27,11 @@
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="confluent" />
+      <option name="name" value="confluent" />
+      <option name="url" value="http://packages.confluent.io/maven/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="ksqlDB" />
       <option name="name" value="ksqlDB" />
       <option name="url" value="https://ksqldb-maven.s3.amazonaws.com/maven/" />
