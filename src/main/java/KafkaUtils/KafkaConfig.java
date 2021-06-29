@@ -1,4 +1,4 @@
-package GenDataKafka;
+package KafkaUtils;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -8,8 +8,15 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import java.util.Properties;
 import java.util.UUID;
 
-public class Utils {
-    public static Producer<String,String> createProducer(){
+public class KafkaConfig {
+    private static KafkaConfig instance;
+    public static KafkaConfig getInstance(){
+        if(instance==null){
+            return new KafkaConfig();
+        }
+        return instance;
+    }
+    public Producer<String,String> createProducer(){
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.ACKS_CONFIG, "all");
@@ -28,8 +35,5 @@ public class Utils {
                 <String, String>(props);
         return producer;
     }
-    public static void publishMessage(String topic,String value,Producer<String,String> producer){
-        String key = UUID.randomUUID().toString();
-        producer.send(new ProducerRecord<String, String>(topic, key, value));
-    }
+
 }
